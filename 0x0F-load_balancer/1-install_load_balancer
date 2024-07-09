@@ -5,24 +5,28 @@
 # Make sure that HAProxy can be managed via an init script
 # Install and configure HAproxy on my lb-01 server.
 sudo apt-get -y update
-apt-get -y install haproxy
+sudo apt-get -y install haproxy
 
 # edit config file
-server_config=\
-"
+server_config="
 frontend  nathan-frontend
         bind *:80
         mode http
-        default_backend nathan-backend
+        default_backend nathan-backend 
+        timeout client 30s
+
 backend nathan-backend
+        mode http
         balance roundrobin
+        timeout connect 5s
+        timeout server 30s
         server 144879-web-01 35.175.126.214:80 check
         server 144879-web-02 3.84.238.153:80 check
 "
-echo "$server_config" | sudo tee -a /etc/haproxy/haproxy.cfg
+echo "$server_config" | sudo tee /etc/haproxy/haproxy.cfg >/dev/null
 
 # enable haproxy to be started by init script
 
-echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+echo "ENABLED=1" | sudo tee /etc/default/haproxy >/dev/null
 
 sudo service haproxy restart
