@@ -20,8 +20,8 @@ backend nathan-backend
         balance roundrobin
         timeout connect 5s
         timeout server 30s
-        server 03-web-01 35.175.126.214:80 check
-        server 03-web-02 3.84.238.153:80 check
+        server web-01 35.175.126.214:80 check
+        server web-02 3.84.238.153:80 check
 "
 echo "$server_config" | sudo tee /etc/haproxy/haproxy.cfg >/dev/null
 
