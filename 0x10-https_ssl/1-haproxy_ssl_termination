@@ -46,6 +46,6 @@ frontend azibhons-frontend-https
 
 backend azibhons-backend
         balance roundrobin
-        server 144879-web-01 34.232.53.174:80 check
-        server 144879-web-02 3.83.227.223:80 check
+        server 144879-web-01 35.175.126.214:80 check
+        server 144879-web-02 3.84.238.153:80 check
 
